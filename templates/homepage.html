@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="formwrapper">
+  <h2 class="title">Insert Date</h2>
+  <form method="POST" action="/">
+      <div class="form-field">{{ form.date.label }} {{ form.date(size=20) }}</div>
+      {{ form.submit }}
+      {{ form.csrf_token }}
+  </form>
+</div>
+{% endblock %}
