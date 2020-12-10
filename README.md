@@ -9,5 +9,6 @@ Set up:
     mac: `source db_env/bin/activate`
     windows: `source db_env/Scripts/activate`
 4. Install dependencies `pip install -r requirements.txt`
+5. Add the connection string from Atlas to our db.py file
 5. Run the app `python app.py`
 
