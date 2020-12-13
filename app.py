@@ -28,9 +28,9 @@ def results():
             date = request.form.get('date')
             sign = h.find_horoscope(date,db)
             date_string = h.date2string(date)
-            wine = h.get_wine(sign["name"],db)
 
             # get wine from horoscope, get cheese from recommendation engine
+            wine = h.get_wine(sign["name"],db)
             cheese = get_cheese_recommendation(wine, db)
 
             # get daily horoscope from API

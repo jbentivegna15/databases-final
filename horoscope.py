@@ -1,4 +1,3 @@
-
 from flask_pymongo import pymongo
 import random
 
