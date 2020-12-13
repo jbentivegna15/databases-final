@@ -22,15 +22,14 @@ def results():
     if request.method == 'POST': 
         if (request.form.get('recommend') == 'Recommend'):
 
-            wine = list(db.wine.find())[0]
             cheese = list(db.cheese.find())[1]
-
+            # wine = list(db.wine.find())[1]
 
             date = request.form.get('date')
             sign = h.find_horoscope(date)
-
             date_string = h.date2string(date)
-            print(date_string)
+            wine = h.get_wine(sign["name"])
+
 
             return render_template("results.html",date=date_string,sign=sign,wine=wine,cheese=cheese)
         
