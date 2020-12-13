@@ -11,7 +11,7 @@ client = pymongo.MongoClient(uri)
 db = client.wine_and_cheese.signs
 
 
-name = "Libra"
+name = "Aquarius"
 
 
 wine_list = ["Champagne", "Chardonnay", "Mencía", "Petit Verdot", \

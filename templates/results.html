@@ -2,9 +2,8 @@
 
 {% block content %}
 
-
 <h1>
-	Recommendation page
+	Your wine and cheese pairing
 </h1>
 <h2>
 	Your birthday is: {{ date }}
@@ -12,9 +11,9 @@
 <h2>
 	Your sign is: {{ sign.name }}
 </h2>
-<h4> 
-	Your horoscope is: {{ horoscope }} 
-</h4>
+<div style="max-width:40%; word-wrap:break-word;">
+	{{horoscope}}
+</div>
 <div class="rec-parent">
 
 	<div class="rec-child">
