@@ -2,6 +2,9 @@ from flask import Flask, url_for, render_template, redirect, request
 from db import connect
 import horoscope as h
 from flask_pymongo import pymongo
+import random
+from get_cheese_recommendation import get_cheese_recommendation
+from get_horoscope import get_horoscope
 
 import os
 
@@ -15,32 +18,31 @@ db = connect()
 @app.route('/')
 def homepage():
     return render_template('homepage.html')
-    
 
-@app.route('/results',methods = ['POST','GET','RELOAD'])
+@app.route('/results', methods = ['POST','GET','RELOAD'])
 def results():
     if request.method == 'POST': 
         if (request.form.get('recommend') == 'Recommend'):
 
-            cheese = list(db.cheese.find())[1]
-            # wine = list(db.wine.find())[1]
-
+            # get date, find horoscope from date, convert date to string
             date = request.form.get('date')
-            sign = h.find_horoscope(date)
+            sign = h.find_horoscope(date,db)
             date_string = h.date2string(date)
-            wine = h.get_wine(sign["name"])
+            wine = h.get_wine(sign["name"],db)
 
+            # get wine from horoscope, get cheese from recommendation engine
+            cheese = get_cheese_recommendation(wine, db)
 
-            return render_template("results.html",date=date_string,sign=sign,wine=wine,cheese=cheese)
+            # get daily horoscope from API
+            horoscope = get_horoscope(sign['name'])
+
+            return render_template("results.html", date=date_string, sign=sign, wine=wine, cheese=cheese, horoscope=horoscope['horoscope'])
         
-        elif (request.form.get('new') == 'pick another date'):
+        elif (request.form.get('new') == 'Pick another date'):
             return redirect(url_for('homepage'))
 
         else:
             return redirect(url_for('homepage'))
-
-# similar wine page
-# similar cheese page
 
 if __name__=='__main__':
     app.run(port=8000)

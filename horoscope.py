@@ -1,20 +1,14 @@
+
 from flask_pymongo import pymongo
 import random
 
-def find_horoscope(date):
-	username = "dan"#input("username: ")
-	password = "pass123"#input("passord: ")
-	CONN_STRING = "mongodb+srv://{}:{}@datacluster.htvsb.mongodb.net/wine_and_cheese?retryWrites=true&w=majority".format(username,password)
-
-	client = pymongo.MongoClient(CONN_STRING)
-	db = client.wine_and_cheese.signs
-
+def find_horoscope(date, db):
 	day = date[5:]
 
-	sign = db.find_one({"$and":[ {"start":{"$lte":day}}, {"end":{"$gte":day}}]})
+	sign = db.signs.find_one({"$and":[ {"start":{"$lte":day}}, {"end":{"$gte":day}}]})
 
 	if (sign is None):
-		return db.find_one({"name":"Capricorn"})
+		return db.signs.find_one({"name":"Capricorn"})
 
 	return sign
 
@@ -35,18 +29,10 @@ def date2string(date):
 	return (months[month] + " " + day)
     
 
-def get_wine(sign):
+def get_wine(sign,db):
 	
-	username = "dan"#input("username: ")
-	password = "pass123"#input("passord: ")
-	CONN_STRING = "mongodb+srv://{}:{}@datacluster.htvsb.mongodb.net/wine_and_cheese?retryWrites=true&w=majority".format(username,password)
 
-	client = pymongo.MongoClient(CONN_STRING)
-	db = client.wine_and_cheese.signs
-
-	wine_types = db.find_one({"name":sign})
-
-	db = client.wine_and_cheese.wine
+	wine_types = db.signs.find_one({"name":sign})
 
 	query = []
 
@@ -54,7 +40,7 @@ def get_wine(sign):
 		query.append({"grape":wine})
 
 
-	wine_list = list(db.find({"$or":query}))
+	wine_list = list(db.wines.find({"$or":query}))
 
 
 	return random.choice(wine_list)

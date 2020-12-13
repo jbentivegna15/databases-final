@@ -4,13 +4,16 @@
 
 
 <h1>
-	Our recommendation page
+	Recommendation page
 </h1>
 <h2>
-	your birthday is: {{date}}
+	Your birthday is: {{ date }}
 </h2>
 <h2>
-	your sign is: {{sign.name}}
+	Your sign is: {{ sign.name }}
+</h2>
+<h2> 
+	Your horoscope is: {{ horoscope }} 
 </h2>
 <div class="rec-parent">
 
@@ -31,7 +34,7 @@
 </div>
 <div class="button">
 	<form action="/results" method = 'POST'>
-		<input type="submit" value="pick another date" name="new">
+		<input type="submit" value="Pick another date" name="new">
 	</form>
 </div>
 
