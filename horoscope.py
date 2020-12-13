@@ -40,7 +40,7 @@ def get_wine(sign,db):
 		query.append({"grape":wine})
 
 
-	wine_list = list(db.wines.find({"$or":query}))
+	wine_list = list(db.wine.find({"$or":query}))
 
 
 	return random.choice(wine_list)
