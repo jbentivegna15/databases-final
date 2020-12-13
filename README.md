@@ -12,3 +12,6 @@ Set up:
 5. Add the connection string from Atlas to our db.py file
 5. Run the app `python app.py`
 
+Note:
+Only works with Chrome
+
