@@ -1,12 +1,26 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<h1>
+    Welcome to our final project {{test}}
+</h1>
+  
+<p>
+please enter your birthday to get a wine and cheese pairing </p>
+	
 <div class="formwrapper">
-  <h2 class="title">Insert Date</h2>
-  <form method="POST" action="/">
-      <div class="form-field">{{ form.date.label }} {{ form.date(size=20) }}</div>
-      {{ form.submit }}
-      {{ form.csrf_token }}
-  </form>
+	<form method="POST" action="/results">
+		<input type="date" name="date">
+		<input type="submit" value="Recommend" name="recommend">
+	</form>
 </div>
+<div>
+	<h4> About: </h4>
+	<p> lorum ipsum </p>
+
+
+</div>
+
+
 {% endblock %}
+

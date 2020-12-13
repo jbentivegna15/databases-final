@@ -1,6 +1,6 @@
-from flask import Flask, url_for, render_template, redirect
+from flask import Flask, url_for, render_template, redirect, request
 from db import connect
-from forms import DateForm
+import horoscope as h
 from flask_pymongo import pymongo
 import random
 from get_cheese_recommendation import get_cheese_recommendation
@@ -15,22 +15,34 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 db = connect()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def homepage():
-    form = DateForm()
-    if form.validate_on_submit():
-        return redirect(url_for('results', date=form.date.data))
-    return render_template('homepage.html', form=form)
+    return render_template('homepage.html')
 
-@app.route('/results/<date>', methods=['GET'])
-def results(date):
-    wine = random.choice(list(db.wine.find()))
-    cheese = get_cheese_recommendation(wine, db)
-    
-    sign = 'Libra'
-    horoscope = get_horoscope(sign)
+@app.route('/results', methods = ['POST','GET','RELOAD'])
+def results():
+    if request.method == 'POST': 
+        if (request.form.get('recommend') == 'Recommend'):
 
-    return render_template('results.html', date=date, wine=wine['name'], cheese=cheese['name'], horoscope=horoscope['horoscope'])
+            # get date, find horoscope from date, convert date to string
+            date = request.form.get('date')
+            sign = h.find_horoscope(date, db)
+            date_string = h.date2string(date)
+
+            # get wine from horoscope, get cheese from recommendation engine
+            wine = random.choice(list(db.wine.find()))
+            cheese = get_cheese_recommendation(wine, db)
+
+            # get daily horoscope from API
+            horoscope = get_horoscope(sign['name'])
+
+            return render_template("results.html", date=date_string, sign=sign, wine=wine, cheese=cheese, horoscope=horoscope['horoscope'])
+        
+        elif (request.form.get('new') == 'Pick another date'):
+            return redirect(url_for('homepage'))
+
+        else:
+            return redirect(url_for('homepage'))
 
 if __name__=='__main__':
     app.run(port=8000)

@@ -1,14 +1,41 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div>
-  <h2 class="title">Results</h2>
-  <h3> Your Birthday is: {{ date }} </h3>
+
+
+<h1>
+	Recommendation page
+</h1>
+<h2>
+	Your birthday is: {{ date }}
+</h2>
+<h2>
+	Your sign is: {{ sign.name }}
+</h2>
+<h2> 
+	Your horoscope is: {{ horoscope }} 
+</h2>
+<div class="rec-parent">
+
+	<div class="rec-child">
+		<img src = {{wine.image_url}}>
+		<h3>{{wine.name}}</h3>
+		<h4>{{wine.grape}}</h4>
+		<p>country of origin: {{wine.Country}}</p>
+		<p>vintage: {{wine.Vintage}}</p>
+	</div>
+
+	<div class="rec-child">
+		<img src = {{cheese.image}}>
+		<h3>{{cheese.name}}</h3>
+		<p>country of origin: {{cheese.location}}</p>
+		<p>flavor notes: {%for flav in cheese.flavor%} {{flav}} {% endfor %}</p>
+	</div>
 </div>
-<body>
-  <div> Recommended Wine: {{ wine }} </div>
-  <div> Recommended Cheese: {{ cheese }} </div>
-  <div> Horoscope: {{ horoscope }} </div>
-</body>
+<div class="button">
+	<form action="/results" method = 'POST'>
+		<input type="submit" value="Pick another date" name="new">
+	</form>
+</div>
 
 {% endblock %}

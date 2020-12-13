@@ -1,15 +1,74 @@
 <!doctype html>
 <html>
+<head>
+<style>
+	h1 {
+  		text-align: center;
+  		border-bottom: 1px solid black
+  	}
+  
+  	h2 {
+  		text-align: center;
+  	}
 
-  <head>
-    <title>{{title}}</title>
-    <meta charset="utf-8">
-    <meta name="description" content={{description}}>
-    <link rel="shortcut icon" href="/favicon.ico">
-  </head>
+  	h3 {
+  		text-align: center;
+  	}
 
-  <body>
-    {% block content %}{% endblock %}
-  </body>
+  	h4 {
+  		text-align: center;
+  	}
+	
+  	p {
+  		text-align: center;
+  	}
+  	
+	div {
+	  	text-align: center;
+	  	margin:auto;
+  	}
+   	
+  	input[type="submit"]{
+	    background-color:#fffff;
+	    border-radius: 2px;
+	   	border: none;
+  	}
+  	
+ 	div[class = "rec-parent"] {
+ 		position:relative;
+	    border: 3px solid #fff;
+	    padding: 20px;
+	    clear:both;
+	}
+
+	div[class = "rec-child"] {
+		position:relative;
+	    width: 40%;
+	    float: left;
+	    padding: 20px;
+	}  
+
+	div[class = "button"] {
+	    padding: 20px;
+	   	text-align: center;
+	   	clear:both;
+	}
+  
+  	img {
+  		height:150px
+	}  
+
+</style>
+
+	<title>{{title}}</title>
+	<meta charset="utf-8">
+	<meta name="description" content={{description}}>
+	<link rel="shortcut icon" href="/favicon.ico">
+
+</head>
+
+<body>
+	{% block content %}{% endblock %}
+</body>
 
 </html>
