@@ -26,6 +26,10 @@ def results():
 
             # get date, find horoscope from date, convert date to string
             date = request.form.get('date')
+            
+            if date == "":
+                return redirect(url_for('homepage'))
+
             sign = h.find_horoscope(date,db)
             date_string = h.date2string(date)
 
